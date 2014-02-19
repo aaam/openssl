@@ -12,9 +12,5 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[private_ca]
-      - recipe[openssl::privat_ca]
+      - recipe[private_ca::default]
     attributes:
-      openssl:
-        private_CAs:
-          - cacert_root.pem
