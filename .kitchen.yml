@@ -21,9 +21,10 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[openssl-test::place_private_ca]
+      - recipe[openssl-test::place_private_CAs]
       - recipe[openssl::private_ca]
     attributes:
       openssl:
         private_CAs:
           - cacert_root.pem
+          - cacert_class_3.pem

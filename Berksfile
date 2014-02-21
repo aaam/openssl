@@ -2,4 +2,4 @@ site :opscode
 
 metadata
 
-cookbook 'openssl-test', :path => 'tests/cookbooks/openssl-test'
+cookbook 'openssl-test', :path => 'test/cookbooks/openssl-test'

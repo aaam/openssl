@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: openssl-test
-# Recipe:: private_ca
+# Recipe:: place_private_CAs
 #
 # Copyright (C) 2014 Sam Cooper
 # 
@@ -17,12 +17,15 @@
 # limitations under the License.
 #
 
-private_ca = case node['platform_family']
+CAs = %w{ cacert_root.pem cacert_class_3.pem }
+
+openssl_root = case node['platform_family']
 when 'rhel', 'fedora'
-  "/etc/pki/tls/certs/cacert_root.pem"
+  "/etc/pki/tls/certs"
 when 'debian'
-  "/etc/ssl/certs/cacert_root.pem"
+  "/etc/ssl/certs"
 end
 
-cookbook_file private_ca
+CAs.each { |ca| cookbook_file "#{openssl_root}/#{ca}" }
+
 
