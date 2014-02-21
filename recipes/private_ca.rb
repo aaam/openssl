@@ -23,6 +23,9 @@
 # this recipe will get the openssl hash for each and create a symbolic link
 # to the cert such that openssl will add it to the chain
 
+# manual instructions which this recipe replicates
+# http://gagravarr.org/writing/openssl-certs/others.shtml
+
 node.openssl.private_CAs.each do |ca|
 
   ca_file = "#{node.openssl.ca_dir}/#{ca}"
