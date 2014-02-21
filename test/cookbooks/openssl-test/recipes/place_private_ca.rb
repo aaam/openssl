@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: private_ca
-# Recipe:: default
+# Cookbook Name:: openssl-test
+# Recipe:: private_ca
 #
 # Copyright (C) 2014 Sam Cooper
 # 
