@@ -17,6 +17,9 @@
 # limitations under the License.
 #
 
+# using the cacert.org CAs to test
+# http://www.cacert.org/index.php?id=3
+
 CAs = %w{ cacert_root.pem cacert_class_3.pem }
 
 openssl_root = case node['platform_family']
