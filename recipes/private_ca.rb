@@ -40,7 +40,7 @@ ruby_block "add CAs to openssl" do
         end
 
         hash = `openssl x509 -noout -hash -in #{ca_file}`
-        `cd #{node.openssl.ca_dir} &&  ln -s #{ca_file} #{hash}.0`
+        `cd #{node.openssl.ca_dir} &&  ln -s #{ca} #{hash}.0`
       end
     end
   end
