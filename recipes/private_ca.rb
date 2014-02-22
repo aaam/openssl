@@ -26,18 +26,23 @@
 # manual instructions which this recipe replicates
 # http://gagravarr.org/writing/openssl-certs/others.shtml
 
-node.openssl.private_CAs.each do |ca|
+ruby_block "add CAs to openssl" do 
+  block do
+    node.openssl.private_CAs.each do |ca|
+      ca_file = "#{node.openssl.ca_dir}/#{ca}"
 
-  ca_file = "#{node.openssl.ca_dir}/#{ca}"
+      Chef::Log.info("DEBUG: ca_file is: #{ca_file}")
+      
+      unless system("ls -l | grep \\\\-\\> #{ca_file} 2>&1 > /dev/null")
 
-  unless `ls -l #{node.openssl.ca_dir} | egrep '\-> #{ca_file}'`
+        unless system("[ \`grep -c 'BEGIN.* CERTIFICATE' #{ca_file}\` = '1' ]")
+          Chef::Application.fatal!("There can only be one certificate in #{ca_file}")
+        end
 
-    unless `[ \`grep -c 'BEGIN.* CERTIFICATE' BBG_CA.crt\` = "1" ]`
-      Chef::Application.fatal!("Incorrect number of certificates in #{ca_file}")
+        hash = `openssl x509 -noout -hash -in #{ca_file}`
+        `ln -s #{ca_file} #{node.openssl.ca_dir}/#{hash}.0`
+      end
     end
-
-    hash = `openssl x509 -noout -hash -in #{ca_file}`
-    `ln -s #{ca_file} #{hash}.0`
   end
 end
 
